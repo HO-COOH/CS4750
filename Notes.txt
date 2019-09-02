@@ -1,0 +1,36 @@
+1.
+    Intelligent Agent
+        definition: An Intelligent agent perceives its environment via sensors and acts rationally upon that environment with its actuators
+        examples: Human
+        Agent Function: Maps percept (P) sequences to actions (A)
+            f: P* -> A
+        Agent program: Runs on the physical architecture to produce f
+        Rationality: Performance measure, Prior environment knowledge, Actions, Percept sequence to date (sensors)
+            A rational agent chooses whichever action maximizes the expected value of the performance measures given the percept sequence to date and prior environment knowledge
+        Agent types:
+            Table-Driven agent:
+                lookup(percepts, table)->action
+                return action
+            Simple reflex agents:
+            Model-based agents:
+            Goal-based agents:
+            Learning agents:
+2.searching method
+    problem-splving agents:
+        problem types:
+            deterministic, fully observable                 -> single-state problem
+            non-observable                                  -> conformation problem
+            nondetermministic and/or partially observable   -> contingency problem
+                percepts provide new information about current state
+            unknown state space                             -> exploration problem
+
+    Tree search algorithm:
+        function Tree-Search(problem, strategy) retuns a solution or failure
+            initialize the search tree using the initial state of problem
+            loop:
+                if there are no candidates for expansion then return failure
+                choose a leaf node for expansion according to strategy
+                if 
+                    the node contains a goal state then return the corresponding solution
+                else
+                    expand the node and add the resulting nodes to the search tree
