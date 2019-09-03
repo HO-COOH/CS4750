@@ -56,3 +56,11 @@ heuristic 启发式的
                         return the corresponding solution
                     else
                         expand the node and add the resulting nodes to the search tree
+        comparison standards:
+            completeness
+            time complexity
+            space complexity
+            optimality
+        Interactive deepening search: Save space compared to breadth first search because it forgets prior result
+        Tree search -> Graph search
+        
