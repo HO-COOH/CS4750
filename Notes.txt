@@ -1,3 +1,4 @@
+heuristic 启发式的
 1.
     Intelligent Agent
         definition: An Intelligent agent perceives its environment via sensors and acts rationally upon that environment with its actuators
@@ -5,16 +6,29 @@
         Agent Function: Maps percept (P) sequences to actions (A)
             f: P* -> A
         Agent program: Runs on the physical architecture to produce f
-        Rationality: Performance measure, Prior environment knowledge, Actions, Percept sequence to date (sensors)
+        Rationality: 
+            What is rational depends on: Performance measure, Prior environment knowledge, Actions, Percept sequence to date (sensors)
             A rational agent chooses whichever action maximizes the expected value of the performance measures given the percept sequence to date and prior environment knowledge
+        Environments: To design a rational agent we must specify its task environment
+            Performance
+            Environment:
+                Fully observable <-> partially observable : whether the sensors can detect all aspects that are relevant to the choice of action
+                Deterministic <-> stochastic: if the next state is completely determined by the current state and the executed action, then it is deterministic
+                Episodic <-> sequential: in an episodic environment the agent's experience can be divided into atomic steps where the agents perceives and then performs a single action
+                Static <-> dynamic: if the environment can change while the agent is choosing an action, the environment is dynamic
+                Discrete <-> continuous: the way time is handled and to the percepts/actions of the agent
+                Single <-> Multi-agent: whether the environment contain other agents who are also maximizing some performance measure that depends on the current agent's actions
+            Actuators
+            Sensors
         Agent types:
             Table-Driven agent:
                 lookup(percepts, table)->action
                 return action
-            Simple reflex agents:
-            Model-based agents:
-            Goal-based agents:
+            Simple reflex agents: select action only by the current percept
+            Model-based agents: maintains internal state and update it to tackle partially observable environment
+            Goal-based agents: future is taken into account to maximize a goal
             Learning agents:
+
 2.searching method
     problem-splving agents:
         problem types:
@@ -23,14 +37,22 @@
             nondetermministic and/or partially observable   -> contingency problem
                 percepts provide new information about current state
             unknown state space                             -> exploration problem
-
-    Tree search algorithm:
-        function Tree-Search(problem, strategy) retuns a solution or failure
-            initialize the search tree using the initial state of problem
-            loop:
-                if there are no candidates for expansion then return failure
-                choose a leaf node for expansion according to strategy
-                if 
-                    the node contains a goal state then return the corresponding solution
-                else
-                    expand the node and add the resulting nodes to the search tree
+        problem formulation:
+            initial state(s0)
+            action function(s) -> {a1, a2, a3...}   //take a state (s) as an input and return a set of actions ({a1,a2,a3...}) possible to take
+            result function(s,a) -> s'              //take a state and an action (s,a) as inputs and return a new state (s')
+            goalTest function(s) -> bool            //take a state (s) as an input and check whether it has reached the goal state, return a boolean value
+            pathCost function(s1+a -> s2) ->cost n      //take a state and an action (s1+a) and determine the cost to reach to the next state(s2), return the cost new 
+        exmaples:
+    basic search algorithms:
+        Tree search algorithm:
+            function Tree-Search(problem, strategy) retuns a solution or failure
+                initialize the search tree using the initial state of problem
+                loop:
+                    if there are no candidates for expansion 
+                        return failure
+                    choose a leaf node for expansion according to strategy
+                    if the node contains a goal state 
+                        return the corresponding solution
+                    else
+                        expand the node and add the resulting nodes to the search tree
