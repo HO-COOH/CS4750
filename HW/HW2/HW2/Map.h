@@ -60,6 +60,9 @@ public:
 		movement.push_back(5);
 	}
 
+	/*Comparison*/
+	bool operator==(const State& state2) const;
+
 	/*Performance*/
 	double getCost() const
 	{
@@ -75,11 +78,16 @@ public:
 	{
 		return movement;
 	}
+
+	auto movementsNumber() const
+	{
+		return movement.size();
+	}
 };
 
-void UniformTreeSearch(State& state);
-void UniformGraphSearch(State& state);
-void DepthFirstTreeSearch(State& state);
-void DepthFirstGraphSearch(State& state);
+void UniformTreeSearch(const State& state);
+void UniformGraphSearch(const State& state);
+void DepthFirstTreeSearch(const State& state);
+void DepthFirstGraphSearch(const State& state);
 
 void ShowMove(const State& state);
