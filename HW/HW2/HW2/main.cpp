@@ -90,5 +90,5 @@ int main()
 	Test1();
 	cout << endl << endl;
 	Test2();
-
+	cin.get();
 }

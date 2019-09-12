@@ -187,7 +187,7 @@ void DepthFirstTreeSearch(const State& state)
 	Timer t;
 	stack<State> fringe;
 	fringe.push(State(state));
-	
+	std::cout << "The first 5 nodes to be expanded:\n";
 	random_device rd;
 	size_t depth = 0;
 	size_t expansion = 0;
@@ -219,7 +219,7 @@ void DepthFirstGraphSearch(const State& state)
 	fringe.push(State(state));
 	vector<State> visited;
 	visited.push_back(State(state));
-	
+	std::cout << "The first 5 nodes to be expanded:\n";
 	random_device rd;
 	size_t depth = 0;
 	size_t expansion = 0;
@@ -228,6 +228,7 @@ void DepthFirstGraphSearch(const State& state)
 	{
 		vector<State> expandedNodes;
 		ExpandState(fringe.top(), expandedNodes);
+		visited.push_back(fringe.top());
 		expandedNodes=GetRidOfVisited(visited, expandedNodes);
 		if (index++ < 5)
 			ShowMove(fringe.top());
@@ -242,7 +243,6 @@ void DepthFirstGraphSearch(const State& state)
 		depth = fringe.top().movementsNumber();
 	}
 	std::cout << "\n\nTotal expansion= " << expansion << std::endl;
-	ShowMove(fringe.top());
 }
 
 
@@ -268,15 +268,15 @@ void ShowMove(const State& state)
 			cout << "¡ú";
 			break;
 		case 4:
-			cout << "S";
+			cout << "+";
 			break;
 		case 5:
-			cout << "O";
+			cout << "-";
 			break;
 		default:
-			cout << "Error in movement!\n";
+			std::cout << "Error in movement!\n";
 			return;
 		}
 	}
-	cout << std::endl;
+	std::cout << std::endl;
 }
