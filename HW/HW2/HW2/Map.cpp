@@ -81,6 +81,29 @@ size_t FindMaxPerf(const std::vector<State>& fringe)
 	return index;
 }
 
+auto FindMaxPerf(const std::stack<State>& fringe)
+{
+	std::stack<State> temp(fringe);
+	State max = temp.top();
+	temp.pop();
+	for (State current = temp.top(); !temp.empty(); temp.pop())
+	{
+		if (current.getCost() > max.getCost())
+			max = current;
+	}
+	return max;
+}
+
+bool IfExpandedToDepth(const std::vector<State>& fringe, size_t depth)
+{
+	for (auto iter = fringe.begin(); iter != fringe.end(); ++iter)
+	{
+		if (iter->movementsNumber() < 10)
+			return false;
+	}
+	return true;
+}
+
 void UniformTreeSearch(const State& state)
 {
 	//State initial_state(state);
@@ -90,7 +113,7 @@ void UniformTreeSearch(const State& state)
 	size_t depth = 0;
 	size_t index = 0;
 	std::cout << "The first 5 nodes to be expanded:\n";
-	while (depth != 10)
+	while (!fringe.empty())
 	{
 		if (fringe.empty())
 		{
@@ -99,15 +122,16 @@ void UniformTreeSearch(const State& state)
 		}
 		auto minCostIndex = FindMaxPerf(fringe);
 		State temp(fringe[minCostIndex]);
+		if(temp.movementsNumber()<10)
+			ExpandState(temp, fringe);
 		fringe.erase(fringe.begin() + minCostIndex);
 		//Show move of the first 5 nodes to be expanded
 		if (index++ < 5)
 			ShowMove(temp);
-		ExpandState(temp, fringe);
-		++depth;
+			
 	}
 	std::cout << "Total expansion= " << fringe.size() << std::endl;
-	std::cout << "\n\nThe best performance within " << depth << " movements is:\n";
+	std::cout << "\nThe best performance within " << depth << " movements is:\n";
 	ShowMove(fringe[FindMaxPerf(fringe)]);
 }
 
@@ -176,7 +200,7 @@ void UniformGraphSearch(const State& state)
 		depth = temp.movementsNumber();
 	}
 	std::cout << "Total expansion= " << fringe.size() << std::endl;
-	std::cout << "\n\nThe best performance within "<<depth<<" movements is:\n";
+	std::cout << "\nThe best performance within "<<depth<<" movements is:\n";
 	ShowMove(visited[FindMaxPerf(visited)]);
 
 }
@@ -208,7 +232,9 @@ void DepthFirstTreeSearch(const State& state)
 		fringe.push(expandedNodes[random_int(rd)]);
 		depth = fringe.top().movementsNumber();
 	}
-	std::cout << "\n\nTotal expansion= " << expansion << std::endl;
+	std::cout << "Total expansion= " << expansion << std::endl;
+	std::cout << "\nThe best performance within " << depth << " movements is:\n";
+	ShowMove(FindMaxPerf(fringe));
 }
 
 void DepthFirstGraphSearch(const State& state)
@@ -242,7 +268,9 @@ void DepthFirstGraphSearch(const State& state)
 		fringe.push(expandedNodes[random_int(rd)]);
 		depth = fringe.top().movementsNumber();
 	}
-	std::cout << "\n\nTotal expansion= " << expansion << std::endl;
+	std::cout << "Total expansion= " << expansion << std::endl;
+	std::cout << "\nThe best performance within " << depth << " movements is:\n";
+	ShowMove(FindMaxPerf(fringe));
 }
 
 
@@ -274,9 +302,9 @@ void ShowMove(const State& state)
 			cout << "-";
 			break;
 		default:
-			std::cout << "Error in movement!\n";
+			cout << "Error in movement!\n";
 			return;
 		}
 	}
-	std::cout << std::endl;
+	cout <<"\t Cost="<<state.getCost()<< std::endl;
 }

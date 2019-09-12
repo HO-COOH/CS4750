@@ -1,0 +1,14 @@
+﻿  main.cpp
+  Map.cpp
+C:\Users\Peter\Desktop\CS4750\HW\HW2\HW2\Map.cpp(231,69): warning C4267:  “参数”: 从“size_t”转换到“_Ty”，可能丢失数据
+C:\Users\Peter\Desktop\CS4750\HW\HW2\HW2\Map.cpp(231,69): warning C4267:         with
+C:\Users\Peter\Desktop\CS4750\HW\HW2\HW2\Map.cpp(231,69): warning C4267:         [
+C:\Users\Peter\Desktop\CS4750\HW\HW2\HW2\Map.cpp(231,69): warning C4267:             _Ty=int
+C:\Users\Peter\Desktop\CS4750\HW\HW2\HW2\Map.cpp(231,69): warning C4267:         ]
+  正在生成代码...
+C:\Users\Peter\Desktop\CS4750\HW\HW2\HW2\Map.cpp(267,69): warning C4267:  “参数”: 从“size_t”转换到“_Ty”，可能丢失数据
+C:\Users\Peter\Desktop\CS4750\HW\HW2\HW2\Map.cpp(267,69): warning C4267:         with
+C:\Users\Peter\Desktop\CS4750\HW\HW2\HW2\Map.cpp(267,69): warning C4267:         [
+C:\Users\Peter\Desktop\CS4750\HW\HW2\HW2\Map.cpp(267,69): warning C4267:             _Ty=int
+C:\Users\Peter\Desktop\CS4750\HW\HW2\HW2\Map.cpp(267,69): warning C4267:         ]
+  HW2.vcxproj -> C:\Users\Peter\Desktop\CS4750\HW\HW2\x64\Debug\HW2.exe
