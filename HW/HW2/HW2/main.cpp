@@ -2,16 +2,10 @@
 #include <iterator>
 #include <vector>
 #include "Map.h"
+#include <thread>
 
 using namespace std;
 
-void Test0()
-{
-	vector<int>a { 3, 6, 1, 2, 1};
-	cout << a.size()<<endl;
-	a.erase(a.begin() + 2);
-	cout << a.size();
-}
 
 void Test1()
 {
@@ -37,14 +31,15 @@ void Test1()
 	t1.init_map(dirty_pos);
 
 	cout << "--------------------Test Case 1-----------------------" << endl;
-	cout << "--------------------Runing Uniform Cost Tree Search-----------------------"<<endl;
-	UniformTreeSearch(t1);
+
+	cout << "--------------------Runing Uniform Cost Tree Search-----------------------" << endl;
+	//UniformTreeSearch(t1);
 
 	cout << "--------------------Runing Uniform Cost Graph Search-----------------------" << endl;
-	UniformGraphSearch(t1);
+	//UniformGraphSearch(t1);
 
 	cout << "--------------------Runing Depth First Tree Search-----------------------" << endl;
-	DepthFirstTreeSearch(t1);
+	//DepthFirstTreeSearch(t1);
 
 	cout << "--------------------Runing Depth First Graph Search-----------------------" << endl;
 	DepthFirstGraphSearch(t1);
@@ -71,13 +66,13 @@ void Test2()
 
 	cout << "--------------------Test Case 2-----------------------" << endl;
 	cout << "--------------------Runing Uniform Cost Tree Search-----------------------" << endl;
-	UniformTreeSearch(t2);
+	//UniformTreeSearch(t2);
 
 	cout << "--------------------Runing Uniform Cost Graph Search-----------------------" << endl;
-	UniformGraphSearch(t2);
+	//UniformGraphSearch(t2);
 
 	cout << "--------------------Runing Depth First Tree Search-----------------------" << endl;
-	DepthFirstTreeSearch(t2);
+	//DepthFirstTreeSearch(t2);
 
 	cout << "--------------------Runing Depth First Graph Search-----------------------" << endl;
 	DepthFirstGraphSearch(t2);
@@ -86,9 +81,9 @@ void Test2()
 
 int main()
 {
-	//Test0();
 	Test1();
 	cout << endl << endl;
 	Test2();
+	cout << "All finished!\n";
 	cin.get();
 }

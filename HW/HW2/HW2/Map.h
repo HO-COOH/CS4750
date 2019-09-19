@@ -62,6 +62,11 @@ public:
 
 	/*Comparison*/
 	bool operator==(const State& state2) const;
+	bool operator<(const State& state2) const
+	{
+		return cost < state2.cost;
+	}
+	
 
 	/*Performance*/
 	double getCost() const
