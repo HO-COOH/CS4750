@@ -63,4 +63,109 @@ heuristic 启发式的
             optimality
         Interactive deepening search: Save space compared to breadth first search because it forgets prior result
         Tree search -> Graph search
-        
+    Local Search Algorithms
+        Hill-climbing
+            pseudocode:
+                Hill-climbing(problem) -> state
+                {   Node current = initial_state, neighbor
+                    while(1)
+                    {
+                        neighbor = max(current.successor)
+                        if(neighbor.value <= current.value)
+                            return current
+                        else
+                            current=neighbor
+                    }
+                }
+            hill-climbing will get stuck at a local-maximum
+
+        Simulated annealing
+            pseudocode:
+                Simulated-annealing(problem, schedule) -> state     //schedule is a function mapping from time to temperature: f(time) -> temperature
+                {
+                    Node current = initial_state, next
+                    Temperature T
+                    for Time t = 1:∞
+                    {
+                        T = schedule(t)
+                        if(T == 0)
+                            return current
+                        else
+                        {
+                            next = randomly_select(current.successor)
+                            E = next.value - current.value
+                            if(E > 0)
+                                current=next
+                            else
+                                current=next with a probability of exp(E/T) 
+                        }
+                    }
+                }
+
+    Game Search:
+        Minimax
+            Limitations: perfect play for deterministic, perfect-information games
+            Idea: choose move to position with highest minimax value -> best achievable payoff against best play
+            pseudocode:
+                Minimax-decision(state) -> action
+                {
+                    return action(state) which maximizing Min-value(action(state).result)
+                }
+                Max-value(state) -> utility value
+                {
+                    if(state.is_terminal())
+                        return Utility(state)
+                    value v = -inf
+                    for_each successor in state.successors
+                    {
+                        v=Max-value(Min-value(successor))
+                    }
+                    return v
+                }
+                Min-value(state) -> utility value
+                {
+                    if(state.is_terminal())
+                        return Utility(state)
+                    value v = +inf
+                    for_each successor in state.successors
+                    {
+                        v=Min-value(Max-value(successor))
+                    }
+                    return v
+                }
+            alpha-beta pruning
+                Idea: because minimax search is basically depth-first tree search, and it is time consuming, some branches do not need to be explored
+                pseudocode:
+                Alpha-beta-decision(state) -> action
+                {
+                    return action(state) which maximizing Min-value(action(state).result)
+                }
+                Max-value(state, alpha, beta) -> utility value
+                {
+                    if(state.is_terminal())
+                        return Utility(state)
+                    value v = -inf
+                    for_each successor in state.successors
+                    {
+                        v=Max-value(Min-value(s, alpha, beta))
+                        if(v >= beta)                           //if one of the successor of state has a value v which is bigger than previous minimum value, than this successor doesn't need to be  
+                            return v
+                        a = max(alpha, v)
+                    }
+                    return v
+                }
+
+
+
+    
+
+
+
+!!
+1. Greedy best search is not a special case of A* search.
+    Reson: Because greedy search only use heuristic function h(n), and A* search uses f(n)=g(n)+h(n), where g(n) is the real cost to the current state.
+    g(n) can't be set to 0 so greedy search can't become A* search.
+2. Depth first search is not a special case of A* search.
+    Reason: The same as above.
+3. Uniform cost search is a special case of A* search.
+    Reason: h(n) can be set to 0, and it is always admissable.
