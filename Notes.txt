@@ -84,7 +84,7 @@ heuristic 启发式的
                 Simulated-annealing(problem, schedule) -> state     //schedule is a function mapping from time to temperature: f(time) -> temperature
                 {
                     Node current = initial_state, next
-                    Temperature T
+                    Temperature T   //T is decreasing with time t
                     for Time t = 1:∞
                     {
                         T = schedule(t)
@@ -155,9 +155,145 @@ heuristic 启发式的
                     return v
                 }
 
+Chapter6 Constrain statisfaction problems
+    1. Definition
+        state:      defined by variable Xi with values in domain Di
+        goal test:  a set of contraints specifying allowable combinations of values for {variables Xi}
+    2. Example:
+        Map-coloring
+    3. Constraint graph
+        If each constraints relates at most 2 variables, they can be represented by a binary CSP graph
+        Node -> variable
+        Arc  -> constraints    
+    4. Varieties of CSP
+        Discrete variable:
+            domain D is finite, size=d
+            nodes N is finite, size=n
+            So, there are O(d^n) complete assignments
+        Continuous variable:
+            domain D and nodes N is infinite
+        Unary constraints: involve a single variable
+        Binary constriants: involve pairs of variables (Map-coloring problem)
+        Higher-order constraints: involves >=3 variables
+        Soft constraints: has perference\cost\optimizations
+    5. Standard search formulation
+        /*State: defined by values assigned so far*/
+        Initial state: { }
+        Successor function: assign value -> unassigned variable that doesn't conflict, return fail if no legal assignment
+        Goal test: all variables are assigned
+        //Every solution appears at depth n with n variables
+        //Path is irrelevant, so we can use depth-first search
+        //b=(n-l)d b-branching factor l-depth -> O(n!d^n) leaves!
+    6.Back-tracking search
+        Only consider assignments to a single variable at each node
+        //b=d -> O(d^n) leaves!
+        pseudocode:
+            Back_tracking_search(CSP) -> solution/failure
+            {
+                return Recursive_backtracking({ }, CSP)
+            }
 
+            Recursive_backtracking(assignment, CSP) -> solution/failure
+            {
+                if(assignments is complete)
+                    return assignments
+                variable var=Select an unassigned variable
+                for value: Domain d
+                {
+                    if(value is consistent with CSP.constraints)
+                    {
+                        var=value
+                        assignment+=var
+                        result=Recursive_backtracking(assignment, CSP)
+                        if(result !=failure)
+                            return result
+                        else
+                            assignment-=var
+                    }
+                }
+                return failure
+            }
+        Improving backtracking efficency:
+            Minimum remaining values(MRV): select the variable with the fewest legal values
+                When there are variables that has the same fewest legal values, use degree heuristic
+            Degree heuristic: select the variable with the most constraints
+            Least constraining value: given a variable, assign it to the value which rules out fewest values in the remaining variables
+    7.Forward checking
+        Keep yrack of remaining legal values for unassigned variables. Terminate search when any variable has no legal values
+        Forward checking propagates information from assigned to unassigned variables, but doesn't provide early detection for all failures
+    8. Arc consistency
+        Simplest form of propagation makes arc consistent
+            X(variable)->Y is consistent if & only if for every value x of X, there is some allowed y for Y
+            If X loses a value, neighbors of X need to be rechecked
+        Arc consistency detects failure earlier than forward checking. It runs as a preprocessor or after each assignment
+        pseudocode:
+            AC-3(CSP) -> new CSP with reduced domains
+            {
+                
+            }
+Chapter 7 Logical agents:
+    0. Entailment
+        KB |= a
+        is true iff. a is true in all worlds where KB is true
+        iff. KB ∈ a
+    1. Horn form
+        KB=conjunction of horn clauses
+        Horn clause=propositional symbol(no negation)/conjunction of symbols + => symbol 
+            eg: C^(B => A)^(C^D => B)
+    2. Conjuctive Normal Form (CNF)
+        conjunction of disjunctions of literals
+            eg: (A V !B)^(B V !C V !D)
+    3. Resolution Algorithm
+        1) Convert KB to CNF
+        2) Show KB ^ !a is unsatisfiable
 
-    
+    !!! KB |= a iff. KB^!a is unsatisfiable
+        KB |= a iff. KB => a is valid
+
+             
+
+Chapter 8 First Order Logic
+    1. FOL vs propositional logic
+        propositional logic assumes world contains facts <-> FOL assumes the world contains: Objects\ relations\ functions
+    2. Synatx
+        Constants: words start with captial letter
+        Predicates: accepts two variables and return a T/F value
+        Functions:
+        Variables: lower case letter
+        Connectives: ^ v ! => <=>
+        Equality: =
+        Quantifiers: For all/ There exist
+    3. Atomic sentences
+        predicates(V1, V2)
+        constant(a single constant)
+        variable(a single variable)
+    4. Complex sentences
+        made from atomic sentences using connectives
+    5. Universal quantification
+        For any<variable> sentence
+            eg: Everyone at Berkeley is smart:
+            For any x, At(x, Berkeley) => Smart(x)
+            !!! => is the main connective with For any<>, not ^
+            For any x, At(x, Berkeley) ^ Smart(x) means: Everyone is at Berkeley and everyone is smart
+    6. Existential quantification
+        There exist<variable> sentence
+            eg: Someone at Stanford is smart.
+            There exist x, At(x, Stanford) ^ Smart(x)
+            !!! ^ is the main connective with There exist, not =>
+            There exist x, At(x, Stanford) => Smart(x) is true if there is anyone who is not at Stanford
+
+    !!!Only (exactly) one person like John
+        (There exist x, People(x)^Likes(x, John)) ^ For any y, ( ( (People(y)^Likes(y, John))=>(x=y))) 
+
+Chapter 13 Uncertainty
+    1. Basic
+        A set: Ω -the sample space
+        sample point: w ∈ Ω is an atomic event
+        A probability space is a sample space with an assignment P(w) for every w ∈ Ω such that:
+            0<=P(w)<=1
+            Sum(P(w),w)=1
+        An event A is any subset of Ω, and P(A)=Sum(P(w), w∈A)
+            
 
 
 

@@ -136,8 +136,8 @@ void MainWindow::on_pushButton_2_clicked()
             }
             else
                 solution_img.setPixel(col, row, black);
-            if(solver->getNodes()[row][col].has_value())
-                solution_img.setPixel(col, row, blue);
+            //if(solver->getNodes()[row][col].has_value())
+            //    solution_img.setPixel(col, row, blue);
         }
     }
 
